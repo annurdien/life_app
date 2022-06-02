@@ -1,0 +1,18 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.mocks.dart"
+    - "**/*.gr.dart"
+    - google_ml_kit/**
+    - fxendit/**
+  errors:
+    invalid_annotation_target: ignore
+
+linter:
+  rules:
+    non_constant_identifier_names: false
+    implementation_imports: false
+    constant_identifier_names: false
