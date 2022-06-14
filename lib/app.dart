@@ -20,15 +20,31 @@ class LifeApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
 
     return ScreenUtilInit(
-      designSize: const Size(375, 812),
+      designSize: const Size(360, 800),
       builder: (context, child) => CustomTheme(
         textTheme: AppTextStyles.lifeApp(),
         colorTheme: AppColors.lifeApp(),
         child: Builder(
           builder: (context) {
+            final textTheme = context.textTheme;
+            final colors = context.colors;
+
             return MaterialApp.router(
               title: 'Life App',
-              theme: ThemeData(),
+              theme: ThemeData().copyWith(
+                scaffoldBackgroundColor: const Color(0xFF2F4767),
+                textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
+                    primary: colors.white,
+                    backgroundColor: colors.blueWhale,
+                    padding: EdgeInsets.symmetric(vertical: 25.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40.w),
+                    ),
+                    textStyle: textTheme.button,
+                  ),
+                ),
+              ),
               routerDelegate: router.delegate(
                 navigatorObservers: () => [
                   FirebaseAnalyticsObserver(
