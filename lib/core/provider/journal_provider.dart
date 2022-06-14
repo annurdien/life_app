@@ -12,7 +12,7 @@ final journalsProvider =
   final storage = ref.watch(storageProvider);
   final user = UserModel.fromJson(json.decode(storage.userJson));
 
-  final response = await client.getUserJournals(user_id: user.id);
+  final response = await client.getUserJournals(user_id: user.id!);
 
   return (response ?? []).map((e) => JournalModel.fromJson(e)).toList();
 });
@@ -24,7 +24,7 @@ final journalByIdProvider =
   final user = UserModel.fromJson(json.decode(storage.userJson));
 
   final response =
-      await client.getUserJournalById(user_id: user.id, journal_id: id);
+      await client.getUserJournalById(user_id: user.id!, journal_id: id);
 
   if (response != null) return JournalModel.fromJson(response);
 
