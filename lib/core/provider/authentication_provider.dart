@@ -41,7 +41,7 @@ class AuthenticationController extends StateNotifier<AuthenticationState> {
     try {
       final response = await client.getUser(user_id: user_id);
       if (response != null) {
-        return UserModel.fromJson(response);
+        return UserModel.fromJson(response).copyWith(id: user_id);
       }
       return null;
     } on FirebaseException catch (_) {
@@ -52,14 +52,14 @@ class AuthenticationController extends StateNotifier<AuthenticationState> {
   Future<void> _init() async {
     final storage = read(storageProvider.notifier);
 
+    await storage.init();
+
     final accessToken = storage.state.accessToken;
-    final idToken = storage.state.idToken;
 
     if (accessToken.isNotEmpty) {
       try {
         final credential = GoogleAuthProvider.credential(
           accessToken: accessToken,
-          idToken: idToken,
         );
 
         final response =
@@ -67,6 +67,8 @@ class AuthenticationController extends StateNotifier<AuthenticationState> {
 
         // Get User
         final user = await getUser(response.user!.uid);
+
+        logger.i(user);
 
         if (user != null) {
           state = AuthenticationState.authenticated(user);
@@ -102,7 +104,7 @@ class AuthenticationController extends StateNotifier<AuthenticationState> {
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
 
-      if (googleAuth?.accessToken == null || googleAuth?.idToken == null) {
+      if (googleAuth?.accessToken == null) {
         throw Exception("Google sign in canceled");
       }
 
@@ -119,14 +121,14 @@ class AuthenticationController extends StateNotifier<AuthenticationState> {
       String? idToken = googleAuth?.idToken;
       String? uid = credentials.user?.uid;
 
-      if (token == null || uid == null || idToken == null) {
+      if (token == null || uid == null) {
         throw NoUIDException();
       }
 
       final storage = read(storageProvider.notifier);
 
       await storage.setAccessToken(token);
-      await storage.setIdToken(idToken);
+      await storage.setIdToken(idToken ?? "");
 
       final user = await getUser(uid);
 
@@ -135,7 +137,7 @@ class AuthenticationController extends StateNotifier<AuthenticationState> {
           email: credentials.user?.email,
           image: credentials.user?.photoURL!,
           name: credentials.user?.displayName!,
-          phone: credentials.user?.phoneNumber!,
+          phone: credentials.user?.phoneNumber,
         );
 
         await client.signUp(
@@ -151,7 +153,10 @@ class AuthenticationController extends StateNotifier<AuthenticationState> {
       }
 
       state = AuthenticationState.authenticated(user);
-    } catch (e) {
+    } on FirebaseException catch (e, stacktrace) {
+      logger.e("AuthenticationController", e, stacktrace);
+    } catch (e, stacktrace) {
+      logger.e("AuthenticationController", e, stacktrace);
       rethrow;
     }
   }
