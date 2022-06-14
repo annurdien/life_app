@@ -35,12 +35,25 @@ dependencies:
   firebase_analytics: ^9.1.9
   firebase_crashlytics: ^2.8.1
   supabase_flutter: ^0.3.1+1
+  supabase: ^0.3.4+1
+  google_sign_in: ^5.3.3
 
   # Layout
   flutter_screenutil: ^5.5.3+2
 
   # Fonts
   google_fonts: ^3.0.1
+
+  # Picture
+  flutter_svg: ^1.1.0
+
+  # Perks
+  flutter_easyloading: ^3.0.5
+
+  # Local Storage
+  hive: ^2.2.1
+  hive_flutter: ^1.1.0
+  logger: ^1.1.0
 
 dev_dependencies:
   flutter_test:
