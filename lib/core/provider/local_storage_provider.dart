@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants.dart';
+import '../../utils.dart';
 
 part 'local_storage_provider.freezed.dart';
 
@@ -37,15 +38,17 @@ class StorageRepository extends StateNotifier<StorageState> {
           accessToken: "",
           userJson: "",
           idToken: "",
-        )) {
-    _init();
-  }
+        ));
 
-  void _init() async {
+  Future<void> init() async {
+    final accessToken = await box.get("accessToken", defaultValue: "");
+    final idToken = await box.get("idToken", defaultValue: "");
+    final userJson = await box.get("userJson", defaultValue: "");
+
     state = StorageState(
-      accessToken: await box.get("accessToken", defaultValue: "") as String,
-      idToken: await box.get("idToken", defaultValue: "") as String,
-      userJson: await box.get("userJson", defaultValue: "") as String,
+      accessToken: accessToken,
+      idToken: idToken,
+      userJson: userJson,
     );
   }
 
