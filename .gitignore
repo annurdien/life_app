@@ -34,6 +34,7 @@ migrate_working_dir/
 *.g.dart
 *.gr.dart
 *.freezed.dart
+pubspec.lock
 
 # Web related
 lib/generated_plugin_registrant.dart
