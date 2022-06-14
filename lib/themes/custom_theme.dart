@@ -115,6 +115,7 @@ class AppTextStyles {
     this.title,
     this.body,
     this.caption,
+    this.button,
   );
 
   factory AppTextStyles.lifeApp() {
@@ -147,6 +148,11 @@ class AppTextStyles {
       fontSize: 14.sp,
     );
 
+    TextStyle button = GoogleFonts.inter(
+      fontWeight: FontWeight.w700,
+      fontSize: 20.sp,
+    );
+
     return AppTextStyles(
       heading1,
       heading2,
@@ -154,6 +160,7 @@ class AppTextStyles {
       title,
       body,
       caption,
+      button,
     );
   }
 
@@ -170,6 +177,7 @@ class AppTextStyles {
   final TextStyle title;
   final TextStyle body;
   final TextStyle caption;
+  final TextStyle button;
 }
 
 extension ColorsX on TextStyle {
