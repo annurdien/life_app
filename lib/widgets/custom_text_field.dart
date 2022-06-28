@@ -5,8 +5,8 @@ import 'package:life_app/themes/custom_theme.dart';
 class CustomTextInput extends StatefulWidget {
   const CustomTextInput({
     Key? key,
-    required this.title,
-    required this.hintText,
+    this.title,
+    this.hintText,
     this.controller,
     this.focusScope,
     this.prefix,
@@ -14,10 +14,11 @@ class CustomTextInput extends StatefulWidget {
     this.obscureText = false,
     this.validator,
     this.keyboardType,
+    this.dense = false,
   }) : super(key: key);
 
-  final String title;
-  final String hintText;
+  final String? title;
+  final String? hintText;
   final TextEditingController? controller;
   final FocusNode? focusScope;
   final Widget? prefix;
@@ -25,6 +26,7 @@ class CustomTextInput extends StatefulWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final bool dense;
 
   @override
   State<CustomTextInput> createState() => _CustomTextInputState();
@@ -41,13 +43,16 @@ class _CustomTextInputState extends State<CustomTextInput> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.title,
-            style: textTheme.body.withColor(
-              colors.white,
+          Visibility(
+            visible: widget.title != null,
+            child: Text(
+              widget.title ?? "",
+              style: textTheme.body.withColor(
+                colors.white,
+              ),
             ),
           ),
-          8.verticalSpace,
+          widget.dense ? const SizedBox() : 8.verticalSpace,
           TextFormField(
             key: widget.key,
             validator: widget.validator,
