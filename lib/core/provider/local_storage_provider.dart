@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:life_app/models/user_model.dart';
 
 import '../../constants.dart';
 import '../../utils.dart';
@@ -25,7 +26,7 @@ class StorageState with _$StorageState {
   const factory StorageState({
     required String accessToken,
     required String idToken,
-    required String userJson,
+    required UserModel? userModel,
   }) = _StorageState;
 }
 
@@ -36,19 +37,19 @@ class StorageRepository extends StateNotifier<StorageState> {
   StorageRepository(this.ref, this.box)
       : super(const StorageState(
           accessToken: "",
-          userJson: "",
+          userModel: null,
           idToken: "",
         ));
 
   Future<void> init() async {
     final accessToken = await box.get("accessToken", defaultValue: "");
     final idToken = await box.get("idToken", defaultValue: "");
-    final userJson = await box.get("userJson", defaultValue: "");
+    final userJson = await box.get("userModel");
 
     state = StorageState(
       accessToken: accessToken,
       idToken: idToken,
-      userJson: userJson,
+      userModel: userJson,
     );
   }
 
@@ -61,8 +62,8 @@ class StorageRepository extends StateNotifier<StorageState> {
     await box.put("accessToken", accessToken);
   }
 
-  Future<void> setUserJson(String userJson) async {
-    await box.put("userJson", userJson);
+  Future<void> putUserModel(UserModel? user) async {
+    await box.put("userModel", user);
   }
 
   Future<void> setIdToken(String idToken) async {
