@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -12,6 +11,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:life_app/app.dart';
 import 'package:life_app/constants.dart';
 import 'package:life_app/firebase_options.dart';
+
+import 'models/user_model.dart';
 
 void main() async {
   init();
@@ -44,6 +45,7 @@ Future<void> init() async {
     // );
 
     await Hive.initFlutter();
+    Hive.registerAdapter(UserModelAdapter());
     await Hive.openLazyBox(Constants.BOX_NAME);
 
     return runApp(
