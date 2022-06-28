@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:life_app/pages/intro_page.dart';
-import 'package:life_app/pages/sign_up_page.dart';
 
 import '../app.dart';
+import '../pages/create_journal_page.dart';
+import '../pages/intro_page.dart';
+import '../pages/journal_list_page.dart';
+import '../pages/music_player_page.dart';
 import '../pages/my_home_page.dart';
 import '../pages/sign_in_page.dart';
+import '../pages/sign_up_page.dart';
 
 part 'router.gr.dart';
 
@@ -28,6 +31,18 @@ part 'router.gr.dart';
     CustomRoute(
       page: SignUpPage,
       transitionsBuilder: TransitionsBuilders.zoomIn,
+    ),
+    CustomRoute(
+      page: CreateJournalPage,
+      transitionsBuilder: TransitionsBuilders.zoomIn,
+    ),
+    CustomRoute(
+      page: JournalListPage,
+      transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+    ),
+    CustomRoute(
+      page: MusicPlayerPage,
+      transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
     ),
   ],
 )
