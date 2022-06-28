@@ -38,4 +38,9 @@ abstract class AppQuery {
   });
 
   Future<List<Map<String, dynamic>>?> getMusics();
+
+  Future<void> addJournal({
+    required String user_id,
+    required JournalDto payload,
+  });
 }
