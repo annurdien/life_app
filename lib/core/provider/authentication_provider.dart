@@ -29,9 +29,7 @@ class AuthenticationController extends StateNotifier<AuthenticationState> {
     event.whenOrNull(
       authenticated: (user) async {
         final userModel = UserModel.fromJson(user.toJson());
-        await read(storageProvider.notifier).setUserJson(
-          userModel.toJson().toString(),
-        );
+        await read(storageProvider.notifier).putUserModel(userModel);
       },
     );
   }
@@ -68,8 +66,6 @@ class AuthenticationController extends StateNotifier<AuthenticationState> {
         // Get User
         final user = await getUser(response.user!.uid);
 
-        logger.i(user);
-
         if (user != null) {
           state = AuthenticationState.authenticated(user);
         } else {
@@ -89,7 +85,7 @@ class AuthenticationController extends StateNotifier<AuthenticationState> {
     await GoogleSignIn().signOut();
     final storage = read(storageProvider.notifier);
     await storage.setAccessToken("");
-    await storage.setUserJson("");
+    await storage.putUserModel(null);
     await storage.setIdToken("");
     await FirebaseAuth.instance.signOut();
     state = const AuthenticationState.unauthenticated();
@@ -145,14 +141,18 @@ class AuthenticationController extends StateNotifier<AuthenticationState> {
           payload: user,
         );
 
+        logger.wtf(user.toJson());
+
         state = AuthenticationState.authenticated(
-          UserModel.fromJson(user.toJson()),
+          UserModel.fromJson(user.toJson()).copyWith(id: uid),
         );
 
         return;
       }
 
-      state = AuthenticationState.authenticated(user);
+      await storage.putUserModel(user);
+
+      state = AuthenticationState.authenticated(user.copyWith(id: uid));
     } on FirebaseException catch (e, stacktrace) {
       logger.e("AuthenticationController", e, stacktrace);
     } catch (e, stacktrace) {
@@ -194,7 +194,7 @@ class AuthenticationController extends StateNotifier<AuthenticationState> {
         UserModel.fromJson(user.toJson()),
       );
 
-      await storage.setUserJson(user.toJson().toString());
+      await storage.putUserModel(UserModel.fromJson(user.toJson()));
 
       return;
     } on FirebaseException catch (_) {
