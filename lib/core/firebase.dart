@@ -93,4 +93,18 @@ class FirebaseQuery implements AppQuery {
   }) async {
     await _firestore.collection("users").doc(user_id).set(payload.toJson());
   }
+
+  @override
+  Future<void> addJournal({
+    required String user_id,
+    required JournalDto payload,
+  }) async {
+    final timestamp = FieldValue.serverTimestamp();
+
+    await _firestore
+        .collection("users")
+        .doc(user_id)
+        .collection("user_journal")
+        .add(payload.toJson()..["created_at"] = timestamp);
+  }
 }
