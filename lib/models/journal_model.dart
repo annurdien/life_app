@@ -24,7 +24,6 @@ class JournalDto with _$JournalDto {
     required String body,
     required int feeling,
     required List<String> emotion,
-    required DateTime created_at,
   }) = _JournalDto;
 
   factory JournalDto.fromJson(Map<String, dynamic> json) =>
