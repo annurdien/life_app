@@ -91,7 +91,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                     MusicCard(
                       relief: relief,
                       onTap: () {
-                        context.pushRoute(const MusicPlayerRoute());
+                        context.pushRoute(MusicPlayerRoute(
+                          relief: relief,
+                        ));
                       },
                     ),
                   ],

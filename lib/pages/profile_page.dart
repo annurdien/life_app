@@ -6,7 +6,6 @@ import 'package:life_app/constants.dart';
 import 'package:life_app/themes/custom_theme.dart';
 
 import '../core/provider/user_provider.dart';
-import '../utils.dart';
 
 class ProfilePage extends StatefulHookConsumerWidget {
   const ProfilePage({Key? key}) : super(key: key);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:life_app/models/relief_model.dart';
 
 import '../app.dart';
 import '../pages/create_journal_page.dart';
