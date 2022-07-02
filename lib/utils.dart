@@ -1,4 +1,5 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 
 final logger = Logger();
@@ -43,4 +44,10 @@ extension Emotion on num {
         return "Meh";
     }
   }
+}
+
+extension StringX on String {
+  String get overflow => Characters(this)
+      .replaceAll(Characters(''), Characters('\u{200B}'))
+      .toString();
 }

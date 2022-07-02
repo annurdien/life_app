@@ -33,11 +33,15 @@ class JournalCard extends ConsumerWidget {
               style: textTheme.title.copyWith(fontSize: 30.sp),
             ),
             10.horizontalSpace,
-            Text(
-              journal.title,
-              style: textTheme.title.copyWith(
-                color: colors.white,
-                fontSize: 14.sp,
+            Expanded(
+              child: Text(
+                journal.title.overflow,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.title.copyWith(
+                  color: colors.white,
+                  fontSize: 14.sp,
+                ),
               ),
             )
           ],

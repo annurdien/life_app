@@ -120,11 +120,7 @@ class MusicPlayerPage extends HookConsumerWidget {
                                 shape: BoxShape.circle,
                               ),
                               child: controller.when(
-                                idle: () => Icon(
-                                  Icons.play_arrow,
-                                  size: 40.sp,
-                                  color: const Color(0xFFF68092),
-                                ),
+                                idle: () => play(),
                                 loading: () => loading(),
                                 buffering: () => loading(),
                                 ready: () => play(),
