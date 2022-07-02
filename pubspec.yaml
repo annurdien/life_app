@@ -59,6 +59,12 @@ dependencies:
   convex_bottom_bar: ^3.0.0
   cached_network_image: ^3.2.1
 
+  # Audio Player
+  just_audio: ^0.9.27
+
+  # Custom Progress Bar
+  audio_video_progress_bar: ^0.10.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
