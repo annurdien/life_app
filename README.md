@@ -5,6 +5,33 @@ Life App is an app that I build for my last assignment for Mobile Apss Courses. 
 have issue with my mental health. Esepecially in this pandemic situation when I cannot really hangout with 
 all of my friends and being stucked in my home in front of my s**tty computer. To be honest I love building this apps not only because I need this apps but for most of it I just enjoy programming.
 
+## Get Started
+1. Clone the repo and all of it's submodules and go to project folder
+```
+git clone <URL>
+```
+2. Setup Signing Keys (optional)
+ - Create `key.properties` file inside `android` folder, for Example:
+```properties
+storePassword=
+keyPassword=
+keyAlias=
+storeFile=
+```
+
+3. Install pub dependencies
+```console
+flutter pub get
+```
+
+4. Build generated files
+```console
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+5. Start debugging
+- Just press F5 and you go
+
 ## Features
 
 - Sleep helper
